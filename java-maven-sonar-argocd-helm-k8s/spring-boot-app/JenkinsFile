@@ -28,13 +28,6 @@ pipeline {
       }
     }
 
-    stage('Quality Gate') {
-      steps {
-        script {
-            echo "SonarQube Quality Gate status: ${qualityGate.status}"
-          }
-      }
-    }
 
 
     stage('Build and Push Docker Image') {
