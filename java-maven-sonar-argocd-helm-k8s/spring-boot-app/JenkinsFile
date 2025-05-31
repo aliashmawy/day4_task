@@ -27,13 +27,19 @@ pipeline {
         }
       }
     }
-    stage("Quality Gate") {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
+  stage('Quality Gate') {
+      steps {
+        script {
+          timeout(time: 2, unit: 'MINUTES') { // Optional: avoid indefinite waiting
+            def qualityGate = waitForQualityGate()
+            echo "SonarQube Quality Gate status: ${qualityGate.status}"
+            if (qualityGate.status != 'OK') {
+              error "Pipeline failed due to quality gate: ${qualityGate.status}"
             }
+          }
         }
+      }
+    }
 
 
     stage('Build and Push Docker Image') {
