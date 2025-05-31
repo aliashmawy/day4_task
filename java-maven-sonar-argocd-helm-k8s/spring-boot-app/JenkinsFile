@@ -20,7 +20,7 @@ pipeline {
     stage('Static Code Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') { // Replace 'SonarQube' with the actual name of your SonarQube server in Jenkins
-          withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_AUTH_TOKEN')]) {
+          withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
             sh '''
               cd java-maven-sonar-argocd-helm-k8s/spring-boot-app
               mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN
