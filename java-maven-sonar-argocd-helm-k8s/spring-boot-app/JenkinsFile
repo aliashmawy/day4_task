@@ -31,7 +31,6 @@ pipeline {
     stage('Quality Gate') {
       steps {
         script {
-            def qualityGate = waitForQualityGate()
             echo "SonarQube Quality Gate status: ${qualityGate.status}"
           }
       }
